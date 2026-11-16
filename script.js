@@ -1,0 +1,1225 @@
+
+    /* =====================================================================
+       1. SOCIAL LINKS CONFIGURATION (EASY TO EDIT FOR AHMAD ALTALLA)
+    ====================================================================== */
+    const SOCIAL_LINKS = {
+      github: {
+        label: 'GitHub',
+        url: 'https://github.com/AhmadAltalla',
+        icon: '<svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11.05 11.05 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.26 5.67.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>'
+      },
+      linkedin: {
+        label: 'LinkedIn',
+        url: 'https://www.linkedin.com/in/ahmadaltalla/?lipi=urn%3Ali%3Apage%3Ad_flagship3_feed%3BU%2BBQkAm1SHK5KS2%2BW%2BqKzQ%3D%3D',
+        icon: '<svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z"/></svg>'
+      },
+      email: {
+        label: 'Email',
+        url: 'mailto:ahtalahlo7@gmail.com',
+        icon: '<svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4M20 8L12 13L4 8V6L12 11L20 6V8Z"/></svg>'
+      },
+      portfolio: {
+        label: 'Portfolio',
+        url: '#top',
+        icon: '<svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>'
+      }
+    };
+
+    /* =====================================================================
+       2. C# DEBUGGER LINES & FULL SOURCE CODE
+    ====================================================================== */
+    const CSHARP_CODE_LINES = {
+      try1: [
+        { line: 1,  code: "static void Try1(int i, ref char q) {" },
+        { line: 2,  code: "    int j = -1;" },
+        { line: 3,  code: "    do {" },
+        { line: 4,  code: "        j++; q = 'n';" },
+        { line: 5,  code: "        if (a[j] == 'y' && b[7 + i - j] == 'y' && c[i + j] == 'y') {" },
+        { line: 6,  code: "            x[i] = j;" },
+        { line: 7,  code: "            a[j] = 'n'; b[7 + i - j] = 'n'; c[i + j] = 'n';" },
+        { line: 8,  code: "            if (i < 7) {" },
+        { line: 9,  code: "                Try1(i + 1, ref q);" },
+        { line: 10, code: "                if (q == 'n') { // Backtrack (تراجع)" },
+        { line: 11, code: "                    a[j] = 'y'; b[7 + i - j] = 'y'; c[i + j] = 'y';" },
+        { line: 12, code: "                }" },
+        { line: 13, code: "            } else { q = 'y'; } // اكتمل الحل الأول" },
+        { line: 14, code: "        }" },
+        { line: 15, code: "    } while ((q == 'n') && (j < 7));" },
+        { line: 16, code: "}" }
+      ],
+      try2: [
+        { line: 1,  code: "static void Try2(int i) {" },
+        { line: 2,  code: "    for (int j = 0; j < 8; j++) {" },
+        { line: 3,  code: "        if (a[j] == 'y' && b[7 + i - j] == 'y' && c[i + j] == 'y') {" },
+        { line: 4,  code: "            x[i] = j;" },
+        { line: 5,  code: "            a[j] = 'n'; b[7 + i - j] = 'n'; c[i + j] = 'n';" },
+        { line: 6,  code: "            if (i < 7)" },
+        { line: 7,  code: "                Try2(i + 1);" },
+        { line: 8,  code: "            else" },
+        { line: 9,  code: "                PrintSolution(); // طباعة الحل المكتمل" },
+        { line: 10, code: "            // تراجع غير مشروط للبحث عن الحلول الـ 92" },
+        { line: 11, code: "            a[j] = 'y'; b[7 + i - j] = 'y'; c[i + j] = 'y';" },
+        { line: 12, code: "        }" },
+        { line: 13, code: "    }" },
+        { line: 14, code: "}" }
+      ]
+    };
+
+    const FULL_CSHARP_PROGRAM = `using System;
+
+namespace EightQueensVisualizer
+{
+    // =========================================================================
+    // محاكي خوارزمية الـ 8 وزراء بلغة C# (الفحص اللحظي O(1) والتراجع Backtracking)
+    // المهندس أحمد التلا | Ahmad Altalla — Software Engineer <ALTALLA SE/>
+    // =========================================================================
+    class Program
+    {
+        static int[] x = new int[8];     // موقع الوزير (رقم الصف j) في كل عمود i
+        static char[] a = new char[8];   // أمان الصفوف الأفقية a[j]
+        static char[] b = new char[15];  // أمان الأقطار الرئيسية (\\) b[7 + i - j]
+        static char[] c = new char[15];  // أمان الأقطار الثانوية (/) c[i + j]
+        static int solutionCount = 0;
+
+        static void InitArrays()
+        {
+            for (int i = 0; i < 8; i++) { x[i] = -1; a[i] = 'y'; }
+            for (int k = 0; k < 15; k++) { b[k] = 'y'; c[k] = 'y'; }
+        }
+
+        // 1. الدالة الأولى: تتوقف فور إيجاد الحل الأول بفضل المعامل المرجعي (ref char q)
+        static void Try1(int i, ref char q)
+        {
+            int j = -1;
+            do
+            {
+                j++;
+                q = 'n';
+                if (a[j] == 'y' && b[7 + i - j] == 'y' && c[i + j] == 'y')
+                {
+                    x[i] = j;
+                    a[j] = 'n'; b[7 + i - j] = 'n'; c[i + j] = 'n';
+
+                    if (i < 7)
+                    {
+                        Try1(i + 1, ref q);
+                        if (q == 'n') // التراجع المشروط عند فشل العمود التالي
+                        {
+                            a[j] = 'y'; b[7 + i - j] = 'y'; c[i + j] = 'y';
+                        }
+                    }
+                    else
+                    {
+                        q = 'y'; // اكتمل وضع 8 وزراء بنجاح!
+                    }
+                }
+            } while ((q == 'n') && (j < 7));
+        }
+
+        // 2. الدالة الثانية: تستكشف وتطبع جميع الحلول الـ 92 الممكنة
+        static void Try2(int i)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                if (a[j] == 'y' && b[7 + i - j] == 'y' && c[i + j] == 'y')
+                {
+                    x[i] = j;
+                    a[j] = 'n'; b[7 + i - j] = 'n'; c[i + j] = 'n';
+
+                    if (i < 7)
+                        Try2(i + 1);
+                    else
+                        PrintSolution();
+
+                    // تراجع غير مشروط للبحث عن بقية الحلول الممكنة
+                    a[j] = 'y'; b[7 + i - j] = 'y'; c[i + j] = 'y';
+                }
+            }
+        }
+
+        static void PrintSolution()
+        {
+            solutionCount++;
+            Console.Write($"Solution #{solutionCount:D2}: ");
+            for (int i = 0; i < 8; i++)
+                Console.Write($"x[{i}]={x[i]} ");
+            Console.WriteLine();
+        }
+
+        static void Main(string[] args)
+        {
+            InitArrays();
+            char q = 'n';
+            Try1(0, ref q);
+            if (q == 'y')
+            {
+                Console.WriteLine("=== First Solution Found via Try1 ===");
+                PrintSolution();
+            }
+
+            InitArrays();
+            solutionCount = 0;
+            Console.WriteLine("\\n=== All 92 Solutions via Try2 ===");
+            Try2(0);
+        }
+    }
+}`;
+
+    /* =====================================================================
+       3. GLOBAL STATE & TRACE ENGINE
+    ====================================================================== */
+    let currentMode = 'try1';          // 'try1' | 'try2'
+    let detailedGranularity = true;    // true = include 'conflict' checks, false = only place/backtrack/solution
+    let boardOverlayMode = 'coords';   // 'coords' | 'mainDiag' | 'antiDiag'
+    let traceSteps = [];
+    let all92Solutions = [];           // Array of 92 arrays x[0..7]
+    let currentStepIndex = 0;
+    let playInterval = null;
+    let playDelayMs = 240;
+
+    // Diagonal Lab State
+    let labViewMode = 'tri';           // 'tri' | 'main' | 'anti' | 'raw'
+    let labSelectedCell = { i: 3, j: 4 };
+
+    /* =====================================================================
+       4. PRECOMPUTE ALL 92 SOLUTIONS & GENERATE STEP-BY-STEP TRACE
+    ====================================================================== */
+    function precomputeAll92Solutions() {
+      all92Solutions = [];
+      const x = new Array(8).fill(-1);
+      const a = new Array(8).fill('y');
+      const b = new Array(15).fill('y');
+      const c = new Array(15).fill('y');
+
+      function solve(i) {
+        for (let j = 0; j < 8; j++) {
+          if (a[j] === 'y' && b[7 + i - j] === 'y' && c[i + j] === 'y') {
+            x[i] = j;
+            a[j] = 'n'; b[7 + i - j] = 'n'; c[i + j] = 'n';
+            if (i < 7) {
+              solve(i + 1);
+            } else {
+              all92Solutions.push([...x]);
+            }
+            a[j] = 'y'; b[7 + i - j] = 'y'; c[i + j] = 'y';
+          }
+        }
+      }
+      solve(0);
+    }
+
+    function generateAlgorithmTrace(mode, includeConflicts) {
+      const steps = [];
+      const x = new Array(8).fill(-1);
+      const a = new Array(8).fill('y');
+      const b = new Array(15).fill('y');
+      const c = new Array(15).fill('y');
+      const stack = [];
+
+      let backtracksCount = 0;
+      let solutionsCount = 0;
+
+      function pushStep(type, i, j, qVal, line, extra = {}) {
+        steps.push({
+          type,
+          i,
+          j,
+          q: qVal,
+          line,
+          x: [...x],
+          a: [...a],
+          b: [...b],
+          c: [...c],
+          stack: stack.map(f => ({ ...f })),
+          btCount: backtracksCount,
+          solCount: solutionsCount,
+          ...extra
+        });
+      }
+
+      if (mode === 'try1') {
+        let q = 'n';
+
+        function try1Rec(i) {
+          stack.push({ i, j: -1, q });
+
+          let j = -1;
+          do {
+            j++;
+            q = 'n';
+            stack[stack.length - 1].j = j;
+            stack[stack.length - 1].q = q;
+
+            const safeA = a[j] === 'y';
+            const safeB = b[7 + i - j] === 'y';
+            const safeC = c[i + j] === 'y';
+            const isSafe = safeA && safeB && safeC;
+
+            if (isSafe) {
+              x[i] = j;
+              a[j] = 'n';
+              b[7 + i - j] = 'n';
+              c[i + j] = 'n';
+
+              pushStep('place', i, j, q, 7, { safeA, safeB, safeC });
+
+              if (i < 7) {
+                try1Rec(i + 1);
+                stack[stack.length - 1].q = q;
+
+                if (q === 'n') {
+                  backtracksCount++;
+                  a[j] = 'y';
+                  b[7 + i - j] = 'y';
+                  c[i + j] = 'y';
+                  x[i] = -1;
+                  pushStep('backtrack', i, j, q, 11, { safeA: true, safeB: true, safeC: true });
+                }
+              } else {
+                q = 'y';
+                stack[stack.length - 1].q = 'y';
+                solutionsCount = 1;
+                pushStep('solution', i, j, q, 13, { safeA: true, safeB: true, safeC: true, solNumber: 1 });
+              }
+            } else if (includeConflicts) {
+              pushStep('conflict', i, j, q, 5, { safeA, safeB, safeC });
+            }
+          } while (q === 'n' && j < 7);
+
+          stack.pop();
+        }
+
+        try1Rec(0);
+      } else {
+        // Mode: Try2 (All 92 solutions)
+        function try2Rec(i) {
+          stack.push({ i, j: 0, q: '-' });
+
+          for (let j = 0; j < 8; j++) {
+            stack[stack.length - 1].j = j;
+            const safeA = a[j] === 'y';
+            const safeB = b[7 + i - j] === 'y';
+            const safeC = c[i + j] === 'y';
+            const isSafe = safeA && safeB && safeC;
+
+            if (isSafe) {
+              x[i] = j;
+              a[j] = 'n';
+              b[7 + i - j] = 'n';
+              c[i + j] = 'n';
+
+              pushStep('place', i, j, 'y', 5, { safeA, safeB, safeC });
+
+              if (i < 7) {
+                try2Rec(i + 1);
+              } else {
+                solutionsCount++;
+                pushStep('solution', i, j, 'y', 9, {
+                  safeA: true,
+                  safeB: true,
+                  safeC: true,
+                  solNumber: solutionsCount
+                });
+              }
+
+              backtracksCount++;
+              a[j] = 'y';
+              b[7 + i - j] = 'y';
+              c[i + j] = 'y';
+              x[i] = -1;
+              pushStep('backtrack', i, j, 'n', 11, { safeA: true, safeB: true, safeC: true });
+            } else if (includeConflicts && steps.length < 3000) {
+              pushStep('conflict', i, j, 'n', 3, { safeA, safeB, safeC });
+            }
+          }
+
+          stack.pop();
+        }
+
+        try2Rec(0);
+      }
+
+      return steps;
+    }
+
+    /* =====================================================================
+       5. SVG CROWN & BOARD RENDERING
+    ====================================================================== */
+    function getQueenCrownSVG(isNewPlacement = false) {
+      return `
+        <svg class="w-5 h-5 sm:w-7 sm:h-7 ${isNewPlacement ? 'queen-crown-anim' : ''} drop-shadow-[0_0_8px_rgba(212,175,55,0.85)]" viewBox="0 0 32 32" fill="none">
+          <path d="M4 24L2 10L9.5 16L16 6L22.5 16L30 10L28 24H4Z" fill="url(#goldGrad)" stroke="#F9F5F6" stroke-width="1.3" stroke-linejoin="round"/>
+          <rect x="4" y="25.5" width="24" height="3" fill="#D4AF37" stroke="#800020" stroke-width="0.8"/>
+          <circle cx="16" cy="5" r="1.8" fill="#E5C158"/>
+          <circle cx="2" cy="9" r="1.5" fill="#E5C158"/>
+          <circle cx="30" cy="9" r="1.5" fill="#E5C158"/>
+          <circle cx="10" cy="21" r="1.3" fill="#800020"/>
+          <circle cx="16" cy="20.5" r="1.5" fill="#E11D48"/>
+          <circle cx="22" cy="21" r="1.3" fill="#800020"/>
+          <defs>
+            <linearGradient id="goldGrad" x1="16" y1="6" x2="16" y2="24" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#E5C158"/>
+              <stop offset="100%" stop-color="#B8860B"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      `;
+    }
+
+    function buildChessboardDOM() {
+      const grid = document.getElementById('chessboardGrid');
+      let html = '';
+
+      for (let j = 0; j < 8; j++) {
+        html += `<div class="grid grid-cols-9">`;
+        html += `
+          <div id="rowHead-${j}" class="flex items-center justify-center text-[10px] sm:text-xs font-mono font-medium text-brandText-secondary bg-surface-card border-r border-b border-white/[0.06]">
+            j=${j}
+          </div>
+        `;
+        for (let i = 0; i < 8; i++) {
+          const isDark = (i + j) % 2 === 1;
+          const baseBg = isDark ? 'bg-[#14141B]' : 'bg-[#1E1E28]';
+          html += `
+            <div id="cell-${i}-${j}"
+              onmouseenter="onBoardCellHover(${i}, ${j})"
+              onclick="onBoardCellClick(${i}, ${j})"
+              class="aspect-square ${baseBg} border border-white/[0.05] relative flex items-center justify-center cursor-pointer transition-all duration-150 overflow-hidden group">
+              <span id="cellOverlay-${i}-${j}" class="absolute top-0.5 left-1 font-mono text-[8px] sm:text-[9px] text-brandText-secondary/50 pointer-events-none select-none">
+                ${i},${j}
+              </span>
+              <div id="cellContent-${i}-${j}" class="z-10 flex items-center justify-center"></div>
+            </div>
+          `;
+        }
+        html += `</div>`;
+      }
+      grid.innerHTML = html;
+    }
+
+    function updateBoardOverlayLabels() {
+      for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
+          const el = document.getElementById(`cellOverlay-${i}-${j}`);
+          if (!el) continue;
+          if (boardOverlayMode === 'coords') {
+            el.textContent = `${i},${j}`;
+            el.className = 'absolute top-0.5 left-1 font-mono text-[8px] sm:text-[9px] text-brandText-secondary/50 pointer-events-none';
+          } else if (boardOverlayMode === 'mainDiag') {
+            el.textContent = `b[${7 + i - j}]`;
+            el.className = 'absolute top-0.5 left-1 font-mono text-[8px] sm:text-[9px] text-gold/85 font-semibold pointer-events-none';
+          } else if (boardOverlayMode === 'antiDiag') {
+            el.textContent = `c[${i + j}]`;
+            el.className = 'absolute top-0.5 left-1 font-mono text-[8px] sm:text-[9px] text-rose-400/90 font-semibold pointer-events-none';
+          }
+        }
+      }
+    }
+
+    function setBoardOverlay(mode) {
+      boardOverlayMode = mode;
+      const btns = {
+        coords: document.getElementById('ovBtn-none'),
+        mainDiag: document.getElementById('ovBtn-mainDiag'),
+        antiDiag: document.getElementById('ovBtn-antiDiag')
+      };
+      Object.keys(btns).forEach(k => {
+        if (!btns[k]) return;
+        if (k === mode) {
+          btns[k].className = 'px-2 py-1 rounded-lg bg-white/15 text-white font-semibold transition-all';
+        } else {
+          btns[k].className = 'px-2 py-1 rounded-lg text-brandText-secondary hover:text-white transition-all';
+        }
+      });
+      updateBoardOverlayLabels();
+    }
+
+    /* =====================================================================
+       6. BUILD MEMORY ARRAY STRIPS & CODE DEBUGGER DOM
+    ====================================================================== */
+    function buildMemoryArraysDOM() {
+      const xCont = document.getElementById('arrayContainer-x');
+      xCont.innerHTML = Array.from({ length: 8 }, (_, i) => `
+        <div id="mem-x-${i}" class="mem-cell bg-surface-bg border border-white/[0.07] py-1.5 px-1 text-center">
+          <div class="text-[9px] font-mono text-brandText-secondary">x[${i}]</div>
+          <div id="memVal-x-${i}" class="text-xs font-mono font-bold text-brandText-secondary mt-0.5">-1</div>
+        </div>
+      `).join('');
+
+      const aCont = document.getElementById('arrayContainer-a');
+      aCont.innerHTML = Array.from({ length: 8 }, (_, j) => `
+        <div id="mem-a-${j}" class="mem-cell bg-surface-bg border border-white/[0.07] py-1.5 px-1 text-center">
+          <div class="text-[9px] font-mono text-brandText-secondary">a[${j}]</div>
+          <div id="memVal-a-${j}" class="text-xs font-mono font-bold text-emerald-safe mt-0.5">'y'</div>
+        </div>
+      `).join('');
+
+      const bCont = document.getElementById('arrayContainer-b');
+      bCont.innerHTML = Array.from({ length: 15 }, (_, k) => `
+        <div id="mem-b-${k}" class="mem-cell bg-surface-bg border border-white/[0.07] py-1 px-0.5 text-center">
+          <div class="text-[9px] font-mono text-brandText-secondary">${k}</div>
+          <div id="memVal-b-${k}" class="text-xs font-mono font-bold text-emerald-safe mt-0.5">'y'</div>
+        </div>
+      `).join('');
+
+      const cCont = document.getElementById('arrayContainer-c');
+      cCont.innerHTML = Array.from({ length: 15 }, (_, k) => `
+        <div id="mem-c-${k}" class="mem-cell bg-surface-bg border border-white/[0.07] py-1 px-0.5 text-center">
+          <div class="text-[9px] font-mono text-brandText-secondary">${k}</div>
+          <div id="memVal-c-${k}" class="text-xs font-mono font-bold text-emerald-safe mt-0.5">'y'</div>
+        </div>
+      `).join('');
+    }
+
+    function buildCodeDebuggerDOM() {
+      const container = document.getElementById('codeDebuggerContainer');
+      const lines = CSHARP_CODE_LINES[currentMode];
+      document.getElementById('codeHeaderSignature').textContent =
+        currentMode === 'try1' ? 'static void Try1(int i, ref char q)' : 'static void Try2(int i)';
+
+      container.innerHTML = lines.map(item => `
+        <div id="codeLine-${item.line}" class="code-line text-brandText-secondary">
+          <span class="w-6 inline-block text-right pr-2.5 text-[10px] text-brandText-secondary/40 select-none">${item.line}</span>
+          <span>${escapeHtml(item.code)}</span>
+        </div>
+      `).join('');
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    /* =====================================================================
+       7. RENDER CURRENT STEP TO BOARD, ARRAYS, CODE, EXPLANATION & STACK
+    ====================================================================== */
+    function renderCurrentStep() {
+      if (!traceSteps.length) return;
+      const step = traceSteps[currentStepIndex];
+      const { type, i, j, q, line, x, a, b, c, stack, btCount, solCount, safeA, safeB, safeC, solNumber } = step;
+
+      const bIdx = 7 + i - j;
+      const cIdx = i + j;
+
+      // 1. Update Timeline & KPIs
+      const slider = document.getElementById('timelineSlider');
+      slider.max = Math.max(0, traceSteps.length - 1);
+      slider.value = currentStepIndex;
+
+      document.getElementById('kpi-step').textContent = `${currentStepIndex + 1} / ${traceSteps.length}`;
+      document.getElementById('kpi-coords').textContent = `i=${i}, j=${j}`;
+      const kpiQ = document.getElementById('kpi-q');
+      kpiQ.textContent = `q='${q}'`;
+      kpiQ.className = `px-2 py-0.5 rounded-md bg-surface-elevated font-mono font-bold border border-white/10 ${q === 'y' ? 'text-emerald-safe' : 'text-rose-400'}`;
+
+      document.getElementById('kpi-depth').textContent = `${stack.length}`;
+      document.getElementById('kpi-backtracks').textContent = `${btCount}`;
+      document.getElementById('kpi-solutions').textContent = currentMode === 'try1' ? `${solCount}/1` : `${solCount}/92`;
+
+      // 2. Highlight Column & Row Headers
+      for (let idx = 0; idx < 8; idx++) {
+        const colH = document.getElementById(`colHead-${idx}`);
+        const rowH = document.getElementById(`rowHead-${idx}`);
+        if (colH) {
+          colH.className = idx === i
+            ? 'text-[10px] sm:text-xs font-mono font-bold text-gold bg-gold/15 py-1 rounded-md'
+            : 'text-[10px] sm:text-xs font-mono font-medium text-brandText-secondary py-1 rounded-md';
+        }
+        if (rowH) {
+          rowH.className = idx === j
+            ? 'flex items-center justify-center text-[10px] sm:text-xs font-mono font-bold text-gold bg-gold/15 border-r border-b border-gold/40'
+            : 'flex items-center justify-center text-[10px] sm:text-xs font-mono font-medium text-brandText-secondary bg-surface-card border-r border-b border-white/[0.06]';
+        }
+      }
+
+      // 3. Render 8x8 Chessboard Cells (with visual conflict rays & attacking queen highlight)
+      let attackingCols = [];
+      for (let col = 0; col < 8; col++) {
+        for (let row = 0; row < 8; row++) {
+          const cell = document.getElementById(`cell-${col}-${row}`);
+          const content = document.getElementById(`cellContent-${col}-${row}`);
+          const isDark = (col + row) % 2 === 1;
+          let classes = `aspect-square border relative flex items-center justify-center cursor-pointer transition-all duration-150 overflow-hidden `;
+          classes += isDark ? 'bg-[#14141B] ' : 'bg-[#1E1E28] ';
+          classes += 'border-white/[0.05] ';
+
+          const hasQueenHere = x[col] === row;
+          const isCurrentCell = col === i && row === j;
+
+          let isConflictRay = false;
+          let isAttackingQueen = false;
+          if (type === 'conflict') {
+            if (!safeA && row === j && col <= i) {
+              isConflictRay = true;
+              if (hasQueenHere) { isAttackingQueen = true; attackingCols.push(`(i=${col}, j=${row})`); }
+            }
+            if (!safeB && (7 + col - row) === bIdx && col <= i) {
+              isConflictRay = true;
+              if (hasQueenHere) { isAttackingQueen = true; attackingCols.push(`(i=${col}, j=${row})`); }
+            }
+            if (!safeC && (col + row) === cIdx && col <= i) {
+              isConflictRay = true;
+              if (hasQueenHere) { isAttackingQueen = true; attackingCols.push(`(i=${col}, j=${row})`); }
+            }
+          }
+
+          if (isCurrentCell) {
+            if (type === 'place' || type === 'solution') {
+              classes += 'bg-emerald-safe/25 border-2 border-emerald-safe shadow-[inset_0_0_14px_rgba(16,185,129,0.45)] ';
+            } else if (type === 'backtrack') {
+              classes += 'bg-burgundy-crimson/35 cell-backtrack-pulse ';
+            } else if (type === 'conflict') {
+              classes += 'bg-burgundy-crimson/30 border-2 border-burgundy-glow ';
+            } else {
+              classes += 'cell-test-pulse ';
+            }
+          } else if (isAttackingQueen) {
+            classes += 'bg-burgundy-crimson/45 border-2 border-burgundy-glow shadow-[0_0_14px_rgba(225,29,72,0.85)] ';
+          } else if (isConflictRay) {
+            classes += 'bg-burgundy-crimson/15 ';
+          } else if (hasQueenHere) {
+            classes += 'bg-gold/10 border-gold/40 ';
+          }
+
+          cell.className = classes;
+
+          if (hasQueenHere) {
+            content.innerHTML = getQueenCrownSVG(isCurrentCell && type === 'place');
+          } else if (isCurrentCell && type === 'backtrack') {
+            content.innerHTML = `<span class="font-mono font-bold text-sm sm:text-base text-rose-300">↺</span>`;
+          } else if (isCurrentCell && type === 'conflict') {
+            content.innerHTML = `<span class="font-mono font-bold text-sm sm:text-base text-rose-300">✕</span>`;
+          } else {
+            content.innerHTML = '';
+          }
+        }
+      }
+
+      // 4. Update Memory Arrays x[8], a[8], b[15], c[15]
+      document.getElementById('ptrLabel-a').textContent = `a[${j}] = '${a[j]}'`;
+      document.getElementById('ptrLabel-b').textContent = `b[7+${i}-${j}] = b[${bIdx}] = '${b[bIdx]}'`;
+      document.getElementById('ptrLabel-c').textContent = `c[${i}+${j}] = c[${cIdx}] = '${c[cIdx]}'`;
+
+      for (let k = 0; k < 8; k++) {
+        const cellX = document.getElementById(`mem-x-${k}`);
+        const valX = document.getElementById(`memVal-x-${k}`);
+        valX.textContent = x[k] !== -1 ? x[k] : '-1';
+        valX.className = `text-xs font-mono font-bold mt-0.5 ${x[k] !== -1 ? 'text-gold' : 'text-brandText-secondary/40'}`;
+        cellX.className = `mem-cell bg-surface-bg border border-white/[0.07] py-1.5 px-1 text-center ${k === i ? 'accessed-gold' : ''}`;
+
+        const cellA = document.getElementById(`mem-a-${k}`);
+        const valA = document.getElementById(`memVal-a-${k}`);
+        valA.textContent = `'${a[k]}'`;
+        valA.className = `text-xs font-mono font-bold mt-0.5 ${a[k] === 'y' ? 'text-emerald-safe' : 'text-rose-400'}`;
+        const aHighlight = k === j ? (type === 'backtrack' ? 'restored-backtrack' : 'accessed-gold') : '';
+        cellA.className = `mem-cell bg-surface-bg border border-white/[0.07] py-1.5 px-1 text-center ${aHighlight}`;
+      }
+
+      for (let k = 0; k < 15; k++) {
+        const cellB = document.getElementById(`mem-b-${k}`);
+        const valB = document.getElementById(`memVal-b-${k}`);
+        valB.textContent = `'${b[k]}'`;
+        valB.className = `text-xs font-mono font-bold mt-0.5 ${b[k] === 'y' ? 'text-emerald-safe' : 'text-rose-400'}`;
+        const bHighlight = k === bIdx ? (type === 'backtrack' ? 'restored-backtrack' : 'accessed-gold') : '';
+        cellB.className = `mem-cell bg-surface-bg border border-white/[0.07] py-1 px-0.5 text-center ${bHighlight}`;
+
+        const cellC = document.getElementById(`mem-c-${k}`);
+        const valC = document.getElementById(`memVal-c-${k}`);
+        valC.textContent = `'${c[k]}'`;
+        valC.className = `text-xs font-mono font-bold mt-0.5 ${c[k] === 'y' ? 'text-emerald-safe' : 'text-rose-400'}`;
+        const cHighlight = k === cIdx ? (type === 'backtrack' ? 'restored-backtrack' : 'accessed-gold') : '';
+        cellC.className = `mem-cell bg-surface-bg border border-white/[0.07] py-1 px-0.5 text-center ${cHighlight}`;
+      }
+
+      // 5. Highlight Active C# Code Line
+      const lines = CSHARP_CODE_LINES[currentMode];
+      lines.forEach(item => {
+        const lineEl = document.getElementById(`codeLine-${item.line}`);
+        if (!lineEl) return;
+        lineEl.className = 'code-line text-brandText-secondary';
+        if (item.line === line) {
+          if (type === 'place') lineEl.classList.add('active-place');
+          else if (type === 'backtrack') lineEl.classList.add('active-backtrack');
+          else if (type === 'conflict') lineEl.classList.add('active-conflict');
+          else if (type === 'solution') lineEl.classList.add('active-solution');
+          else lineEl.classList.add('active-test');
+        }
+      });
+
+      // 6. Render Compact Call Stack Pills
+      const stackCont = document.getElementById('callStackContainer');
+      stackCont.innerHTML = stack.map((frame, idx) => {
+        const isTop = idx === stack.length - 1;
+        return `
+          <span class="px-2 py-0.5 rounded-md font-mono text-[10px] sm:text-[11px] border transition-all ${
+            isTop
+              ? (type === 'backtrack'
+                  ? 'bg-burgundy-crimson/25 border-burgundy-glow text-rose-200 font-bold'
+                  : 'bg-gold/15 border-gold text-gold font-bold')
+              : 'bg-surface-bg border-white/10 text-brandText-secondary'
+          }">
+            Try(${frame.i}):j=${frame.j}
+          </span>
+        `;
+      }).join('<span class="text-brandText-secondary/40 text-[10px]">➔</span>');
+
+      // 7. Update Clear Arabic Step Explanation & Live Formula Pills
+      updateStepExplanationAndEquations(step, bIdx, cIdx, attackingCols);
+    }
+
+    function updateStepExplanationAndEquations(step, bIdx, cIdx, attackingCols) {
+      const { type, i, j, safeA, safeB, safeC, solNumber } = step;
+      const card = document.getElementById('explainCard');
+      const badge = document.getElementById('stepTypeBadge');
+      const title = document.getElementById('stepTitle');
+      const subCoords = document.getElementById('stepSubCoords');
+      const text = document.getElementById('stepExplanationText');
+
+      const eqA = document.getElementById('eq-a');
+      const eqB = document.getElementById('eq-b');
+      const eqC = document.getElementById('eq-c');
+      const condBadge = document.getElementById('condResultBadge');
+
+      subCoords.textContent = `i=${i}, j=${j} | b[${bIdx}], c[${cIdx}]`;
+
+      eqA.textContent = `a[${j}]=='${safeA ? 'y' : 'n'}'`;
+      eqA.className = `px-2 py-0.5 rounded border font-semibold ${safeA ? 'bg-emerald-safe/15 border-emerald-safe/50 text-emerald-safe' : 'bg-burgundy-crimson/25 border-burgundy-glow text-rose-300'}`;
+
+      eqB.textContent = `b[${bIdx}]=='${safeB ? 'y' : 'n'}'`;
+      eqB.className = `px-2 py-0.5 rounded border font-semibold ${safeB ? 'bg-emerald-safe/15 border-emerald-safe/50 text-emerald-safe' : 'bg-burgundy-crimson/25 border-burgundy-glow text-rose-300'}`;
+
+      eqC.textContent = `c[${cIdx}]=='${safeC ? 'y' : 'n'}'`;
+      eqC.className = `px-2 py-0.5 rounded border font-semibold ${safeC ? 'bg-emerald-safe/15 border-emerald-safe/50 text-emerald-safe' : 'bg-burgundy-crimson/25 border-burgundy-glow text-rose-300'}`;
+
+      if (type === 'place') {
+        card.className = 'modern-card p-3.5 sm:p-5 border-r-4 border-r-emerald-safe transition-all';
+        badge.className = 'px-2.5 py-0.5 rounded-full text-[11px] sm:text-xs font-bold bg-emerald-safe/15 text-emerald-safe border border-emerald-safe/30';
+        badge.textContent = 'تثبيت وزير (Place) 👑';
+        title.innerHTML = `المربع <span dir="ltr" class="font-mono text-emerald-safe">(i=${i}, j=${j})</span> آمن — تم وضع الوزير وحجز مساراته`;
+        text.innerHTML = `
+          جميع شروط الأمان الثلاثة محققة (<code dir="ltr" class="font-mono text-emerald-safe">'y'</code>): تم تسجيل موقع الوزير في <code dir="ltr" class="font-mono text-gold">x[${i}] = ${j}</code>، وتحويل <code dir="ltr" class="font-mono text-rose-400">a[${j}], b[${bIdx}], c[${cIdx}]</code> إلى <code dir="ltr" class="font-mono text-rose-400">'n'</code>، والانتقال للعمود التالي <code dir="ltr" class="font-mono text-gold">i=${i + 1}</code>.
+        `;
+        condBadge.textContent = 'SAFE (TRUE)';
+        condBadge.className = 'px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-safe/20 text-emerald-safe';
+      } else if (type === 'conflict') {
+        card.className = 'modern-card p-3.5 sm:p-5 border-r-4 border-r-burgundy-crimson transition-all';
+        badge.className = 'px-2.5 py-0.5 rounded-full text-[11px] sm:text-xs font-bold bg-burgundy-crimson/20 text-rose-300 border border-burgundy-glow/40';
+        badge.textContent = 'فحص مربع: مرفوض ✕';
+        const reasons = [];
+        if (!safeA) reasons.push(`الصف الأفقي محجوز (<code dir="ltr" class="font-mono text-rose-300">a[${j}]='n'</code>)`);
+        if (!safeB) reasons.push(`القطر الرئيسي \\ محجوز (<code dir="ltr" class="font-mono text-rose-300">b[${bIdx}]='n'</code>)`);
+        if (!safeC) reasons.push(`القطر الثانوي / محجوز (<code dir="ltr" class="font-mono text-rose-300">c[${cIdx}]='n'</code>)`);
+        const attackerNote = attackingCols.length ? ` من الوزير الموجود في <code dir="ltr" class="font-mono text-gold">${attackingCols[0]}</code>` : '';
+        title.innerHTML = `المربع <span dir="ltr" class="font-mono text-rose-400">(i=${i}, j=${j})</span> مهدد${attackerNote}`;
+        text.innerHTML = `مرفوض لأن ${reasons.join(' و')} (لاحظ المسار المضيء بالأحمر على الرقعة). تتخطاه الحلقة فوراً لتجربة الصف التالي.`;
+        condBadge.textContent = 'CONFLICT (FALSE)';
+        condBadge.className = 'px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-burgundy-crimson/30 text-rose-300';
+      } else if (type === 'backtrack') {
+        card.className = 'modern-card p-3.5 sm:p-5 border-r-4 border-r-burgundy-glow shadow-[0_0_24px_rgba(225,29,72,0.2)] transition-all';
+        badge.className = 'px-2.5 py-0.5 rounded-full text-[11px] sm:text-xs font-bold bg-burgundy-glow text-white';
+        badge.textContent = 'تراجع (Backtrack) ↺';
+        title.innerHTML = `تراجع إلى العمود <span dir="ltr" class="font-mono text-rose-400">i=${i}</span> ورفع الوزير من الصف <span dir="ltr" class="font-mono text-rose-400">j=${j}</span>`;
+        text.innerHTML = currentMode === 'try1'
+          ? `فشلت جميع صفوف العمود التالي <code dir="ltr" class="font-mono text-gold">i=${i + 1}</code> وعادت <code dir="ltr" class="font-mono text-rose-400">q='n'</code>؛ لذلك نتراجع برفع الوزير من <code dir="ltr" class="font-mono">(i=${i}, j=${j})</code> وإعادة <code dir="ltr" class="font-mono text-emerald-safe">a[${j}]='y', b[${bIdx}]='y', c[${cIdx}]='y'</code> لتجربة صف جديد.`
+          : `تراجع في <code dir="ltr" class="font-mono text-gold">Try2(${i})</code> لتحرير المسارات <code dir="ltr" class="font-mono text-emerald-safe">a[${j}], b[${bIdx}], c[${cIdx}] = 'y'</code> ومواصلة البحث عن بقية الحلول الـ 92.`;
+        condBadge.textContent = "RESTORE 'y'";
+        condBadge.className = 'px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-burgundy-glow/30 text-rose-200';
+      } else if (type === 'solution') {
+        card.className = 'modern-card p-3.5 sm:p-5 border-r-4 border-r-gold shadow-[0_0_24px_rgba(212,175,55,0.25)] transition-all';
+        badge.className = 'px-2.5 py-0.5 rounded-full text-[11px] sm:text-xs font-bold bg-gold text-obsidian';
+        badge.textContent = `حل مكتمل #${solNumber || 1} ★`;
+        title.innerHTML = `نجاح! اكتمل وضع 8 وزراء بأمان في العمود الأخير <span dir="ltr" class="font-mono text-gold">(i=7, j=${j})</span>`;
+        text.innerHTML = currentMode === 'try1'
+          ? `وصلنا إلى العمود الأخير <code dir="ltr" class="font-mono text-gold">i == 7</code>؛ تتحول <code dir="ltr" class="font-mono text-emerald-safe">q = 'y'</code> بالمرجع (<code dir="ltr" class="font-mono">ref char q</code>) فتتوقف جميع حلقات <code dir="ltr" class="font-mono">do-while</code> فوراً ويُحفظ الحل الأول.`
+          : `تم تسجيل الحل رقم <strong>#${solNumber}</strong> من أصل 92 حلاً عبر <code dir="ltr" class="font-mono text-gold">PrintSolution()</code>.`;
+        condBadge.textContent = 'SOLUTION FOUND';
+        condBadge.className = 'px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-gold text-obsidian';
+      }
+    }
+
+    /* =====================================================================
+       8. PLAYBACK, SCRUBBING, MOBILE SUB-PANELS & QUICK-JUMP CONTROLS
+    ====================================================================== */
+    function setMobileSimSubPanel(panel) {
+      const arrEl = document.getElementById('simSubPanel-arrays');
+      const codeEl = document.getElementById('simSubPanel-code');
+      const btnArr = document.getElementById('mobPanelBtn-arrays');
+      const btnCode = document.getElementById('mobPanelBtn-code');
+      const btnBoth = document.getElementById('mobPanelBtn-both');
+
+      const activeCls = 'flex-1 py-1.5 rounded-lg text-xs font-semibold bg-burgundy-royal text-white transition-all';
+      const idleCls = 'flex-1 py-1.5 rounded-lg text-xs font-medium text-brandText-secondary transition-all';
+
+      btnArr.className = panel === 'arrays' ? activeCls : idleCls;
+      btnCode.className = panel === 'code' ? activeCls : idleCls;
+      btnBoth.className = panel === 'both' ? activeCls : idleCls;
+
+      if (panel === 'arrays') {
+        arrEl.className = 'modern-card p-4 sm:p-5 space-y-3.5 block';
+        codeEl.className = 'hidden lg:block modern-card overflow-hidden';
+      } else if (panel === 'code') {
+        arrEl.className = 'hidden lg:block modern-card p-4 sm:p-5 space-y-3.5';
+        codeEl.className = 'block modern-card overflow-hidden';
+      } else {
+        arrEl.className = 'block modern-card p-4 sm:p-5 space-y-3.5';
+        codeEl.className = 'block modern-card overflow-hidden';
+      }
+    }
+
+    function setAlgorithmMode(mode) {
+      pauseSim();
+      currentMode = mode;
+
+      const btn1 = document.getElementById('modeBtn-try1');
+      const btn2 = document.getElementById('modeBtn-try2');
+      if (mode === 'try1') {
+        btn1.className = 'px-2.5 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs font-semibold transition-all bg-burgundy-royal text-white shadow-sm';
+        btn2.className = 'px-2.5 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs font-medium transition-all text-brandText-secondary hover:text-white';
+      } else {
+        btn2.className = 'px-2.5 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs font-semibold transition-all bg-burgundy-royal text-white shadow-sm';
+        btn1.className = 'px-2.5 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs font-medium transition-all text-brandText-secondary hover:text-white';
+      }
+
+      buildCodeDebuggerDOM();
+      traceSteps = generateAlgorithmTrace(currentMode, detailedGranularity);
+      currentStepIndex = 0;
+      renderCurrentStep();
+    }
+
+    function toggleTraceGranularity() {
+      pauseSim();
+      detailedGranularity = !detailedGranularity;
+      const label = document.getElementById('granularityLabel');
+      label.textContent = detailedGranularity ? 'شامل (كل فحص)' : 'مختصر (تثبيت وتراجع)';
+      traceSteps = generateAlgorithmTrace(currentMode, detailedGranularity);
+      currentStepIndex = 0;
+      renderCurrentStep();
+    }
+
+    function togglePlay() {
+      if (playInterval) {
+        pauseSim();
+      } else {
+        if (currentStepIndex >= traceSteps.length - 1) {
+          currentStepIndex = 0;
+        }
+        document.getElementById('playPauseIcon').textContent = '⏸';
+        document.getElementById('playPauseText').textContent = 'إيقاف';
+        playInterval = setInterval(() => {
+          if (currentStepIndex < traceSteps.length - 1) {
+            currentStepIndex++;
+            renderCurrentStep();
+          } else {
+            pauseSim();
+          }
+        }, playDelayMs);
+      }
+    }
+
+    function pauseSim() {
+      if (playInterval) {
+        clearInterval(playInterval);
+        playInterval = null;
+      }
+      document.getElementById('playPauseIcon').textContent = '▶';
+      document.getElementById('playPauseText').textContent = 'تشغيل';
+    }
+
+    function stepForward() {
+      pauseSim();
+      if (currentStepIndex < traceSteps.length - 1) {
+        currentStepIndex++;
+        renderCurrentStep();
+      }
+    }
+
+    function stepBackward() {
+      pauseSim();
+      if (currentStepIndex > 0) {
+        currentStepIndex--;
+        renderCurrentStep();
+      }
+    }
+
+    function resetSim() {
+      pauseSim();
+      currentStepIndex = 0;
+      renderCurrentStep();
+    }
+
+    function scrubToStep(val) {
+      pauseSim();
+      currentStepIndex = Math.max(0, Math.min(traceSteps.length - 1, parseInt(val, 10) || 0));
+      renderCurrentStep();
+    }
+
+    function updateSpeed(val) {
+      const v = parseInt(val, 10);
+      playDelayMs = Math.max(15, Math.round(620 - v * 5.9));
+      const multiplier = (240 / playDelayMs).toFixed(1).replace('.0', '');
+      document.getElementById('speedValueLabel').textContent = `${multiplier}x`;
+      if (playInterval) {
+        pauseSim();
+        togglePlay();
+      }
+    }
+
+    function jumpToBacktrackMoment() {
+      pauseSim();
+      switchTab('sim');
+      let targetIdx = traceSteps.findIndex((s, idx) => idx > currentStepIndex && s.type === 'backtrack');
+      if (targetIdx === -1) {
+        targetIdx = traceSteps.findIndex(s => s.type === 'backtrack');
+      }
+      if (targetIdx !== -1) {
+        currentStepIndex = targetIdx;
+        renderCurrentStep();
+        document.getElementById('explainCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    function jumpToNextSolution() {
+      pauseSim();
+      switchTab('sim');
+      let targetIdx = traceSteps.findIndex((s, idx) => idx > currentStepIndex && s.type === 'solution');
+      if (targetIdx === -1) {
+        targetIdx = traceSteps.findIndex(s => s.type === 'solution');
+      }
+      if (targetIdx !== -1) {
+        currentStepIndex = targetIdx;
+        renderCurrentStep();
+        document.getElementById('explainCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    /* =====================================================================
+       9. BOARD INTERACTIVE HOVER/TAP & 92 SOLUTIONS GALLERY INSPECTOR
+    ====================================================================== */
+    function onBoardCellHover(i, j) {
+      if (!traceSteps.length) return;
+      const step = traceSteps[currentStepIndex];
+      const bIdx = 7 + i - j;
+      const cIdx = i + j;
+      const aVal = step.a[j];
+      const bVal = step.b[bIdx];
+      const cVal = step.c[cIdx];
+
+      const hud = document.getElementById('boardHoverFormulas');
+      hud.innerHTML = `
+        <span class="text-gold font-bold">(i=${i}, j=${j})</span> ➔
+        <span class="${aVal === 'y' ? 'text-emerald-safe' : 'text-rose-400'}">a[${j}]='${aVal}'</span> |
+        <span class="${bVal === 'y' ? 'text-emerald-safe' : 'text-rose-400'}">b[${bIdx}]='${bVal}'</span> |
+        <span class="${cVal === 'y' ? 'text-emerald-safe' : 'text-rose-400'}">c[${cIdx}]='${cVal}'</span>
+      `;
+    }
+
+    function onBoardCellClick(i, j) {
+      onBoardCellHover(i, j);
+    }
+
+    function buildSolutionsGalleryDOM() {
+      const dropdown = document.getElementById('solutionSelectDropdown');
+      const quickBar = document.getElementById('solutionsQuickBar');
+
+      dropdown.innerHTML = all92Solutions.map((sol, idx) => `
+        <option value="${idx + 1}">الحل #${String(idx + 1).padStart(2, '0')} — x = [${sol.join(', ')}]</option>
+      `).join('');
+
+      quickBar.innerHTML = all92Solutions.slice(0, 8).map((_, idx) => `
+        <button type="button" id="solPill-${idx + 1}" onclick="inspectSolutionByNumber(${idx + 1})"
+          class="px-2.5 py-1 rounded-lg text-[11px] font-mono bg-surface-elevated border border-white/10 hover:border-gold text-brandText-secondary hover:text-gold transition-all">
+          #${idx + 1}
+        </button>
+      `).join('');
+    }
+
+    function inspectSolutionByNumber(solNum) {
+      const num = parseInt(solNum, 10);
+      if (!num || num < 1 || num > all92Solutions.length) return;
+      pauseSim();
+      document.getElementById('solutionSelectDropdown').value = num;
+
+      for (let k = 1; k <= 8; k++) {
+        const pill = document.getElementById(`solPill-${k}`);
+        if (pill) {
+          pill.className = k === num
+            ? 'px-2.5 py-1 rounded-lg text-[11px] font-mono bg-burgundy-royal text-white border border-gold/50 font-bold'
+            : 'px-2.5 py-1 rounded-lg text-[11px] font-mono bg-surface-elevated border border-white/10 hover:border-gold text-brandText-secondary hover:text-gold transition-all';
+        }
+      }
+
+      if (num > 1 && currentMode === 'try1') {
+        setAlgorithmMode('try2');
+      }
+
+      const solStepIdx = traceSteps.findIndex(s => s.type === 'solution' && s.solNumber === num);
+      if (solStepIdx !== -1) {
+        currentStepIndex = solStepIdx;
+        renderCurrentStep();
+      }
+    }
+
+    /* =====================================================================
+       10. TAB 2: O(1) DIAGONAL MAPPING LABORATORY ENGINE
+    ====================================================================== */
+    function buildDiagonalLabDOM() {
+      const grid = document.getElementById('diagLabGrid');
+      let html = '';
+
+      for (let j = 0; j < 8; j++) {
+        html += `<div class="grid grid-cols-9">`;
+        html += `
+          <div class="flex items-center justify-center text-[10px] sm:text-xs font-mono font-medium text-brandText-secondary bg-surface-card border-r border-b border-white/[0.06]">
+            j=${j}
+          </div>
+        `;
+        for (let i = 0; i < 8; i++) {
+          html += `
+            <div id="labCell-${i}-${j}"
+              onmouseenter="selectLabCell(${i}, ${j})"
+              onclick="selectLabCell(${i}, ${j})"
+              class="aspect-square border border-white/[0.05] flex flex-col items-center justify-center cursor-pointer transition-all p-0.5 select-none">
+              <span id="labCellTop-${i}-${j}" class="font-mono text-[8px] sm:text-[9px] text-brandText-secondary/60">(${i},${j})</span>
+              <span id="labCellMain-${i}-${j}" class="font-mono text-[10px] sm:text-sm font-bold text-brandText-primary mt-0.5"></span>
+            </div>
+          `;
+        }
+        html += `</div>`;
+      }
+      grid.innerHTML = html;
+
+      document.getElementById('labArray-a').innerHTML = Array.from({ length: 8 }, (_, k) => `
+        <div id="labArr-a-${k}" class="py-1 rounded text-center font-mono text-[10px] bg-surface-bg border border-white/10 text-brandText-secondary">a[${k}]</div>
+      `).join('');
+
+      document.getElementById('labArray-b').innerHTML = Array.from({ length: 15 }, (_, k) => `
+        <div id="labArr-b-${k}" class="py-1 rounded text-center font-mono text-[9px] bg-surface-bg border border-white/10 text-brandText-secondary">${k}</div>
+      `).join('');
+
+      document.getElementById('labArray-c').innerHTML = Array.from({ length: 15 }, (_, k) => `
+        <div id="labArr-c-${k}" class="py-1 rounded text-center font-mono text-[9px] bg-surface-bg border border-white/10 text-brandText-secondary">${k}</div>
+      `).join('');
+
+      renderDiagonalLab();
+    }
+
+    function setLabViewMode(mode) {
+      labViewMode = mode;
+      const modes = ['tri', 'main', 'anti', 'raw'];
+      modes.forEach(m => {
+        const btn = document.getElementById(`labMode-${m}`);
+        if (m === mode) {
+          btn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-burgundy-royal text-white transition-all';
+        } else {
+          btn.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-brandText-secondary hover:text-white transition-all';
+        }
+      });
+      renderDiagonalLab();
+    }
+
+    function selectLabCell(i, j) {
+      labSelectedCell = { i, j };
+      renderDiagonalLab();
+    }
+
+    function renderDiagonalLab() {
+      const { i: selI, j: selJ } = labSelectedCell;
+      const selB = 7 + selI - selJ;
+      const selC = selI + selJ;
+
+      document.getElementById('labSelectedCoordBadge').textContent = `Selected: (i=${selI}, j=${selJ})`;
+      document.getElementById('labLiveCellTitle').textContent = `(i = ${selI}, j = ${selJ})`;
+      document.getElementById('labCalc-row').textContent = `a[j] = a[${selJ}]`;
+      document.getElementById('labCalc-main').textContent = `b[7+${selI}-${selJ}] = b[${selB}]`;
+      document.getElementById('labCalc-anti').textContent = `c[${selI}+${selJ}] = c[${selC}]`;
+
+      document.getElementById('labArrayLabel-a').textContent = `a[${selJ}]`;
+      document.getElementById('labArrayLabel-b').textContent = `b[7 + ${selI} - ${selJ}] = b[${selB}]`;
+      document.getElementById('labArrayLabel-c').textContent = `c[${selI} + ${selJ}] = c[${selC}]`;
+
+      for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
+          const cell = document.getElementById(`labCell-${i}-${j}`);
+          const topEl = document.getElementById(`labCellTop-${i}-${j}`);
+          const mainEl = document.getElementById(`labCellMain-${i}-${j}`);
+
+          const bIdx = 7 + i - j;
+          const cIdx = i + j;
+          const rawDiff = i - j;
+
+          const isSelected = i === selI && j === selJ;
+          const sameRow = j === selJ;
+          const sameMain = bIdx === selB;
+          const sameAnti = cIdx === selC;
+
+          let bgClass = (i + j) % 2 === 1 ? 'bg-[#14141B]' : 'bg-[#1E1E28]';
+          let borderClass = 'border-white/[0.05]';
+          let mainText = '';
+          let mainColor = 'text-brandText-primary';
+
+          if (labViewMode === 'tri') {
+            mainText = `${bIdx}|${cIdx}`;
+            topEl.textContent = `(${i},${j})`;
+            if (isSelected) {
+              bgClass = 'bg-gold/30';
+              borderClass = 'border-2 border-gold';
+              mainText = '👑';
+            } else if (sameRow) {
+              bgClass = 'bg-emerald-safe/20';
+              borderClass = 'border-emerald-safe/60';
+              mainText = `a[${j}]`;
+              mainColor = 'text-emerald-safe';
+            } else if (sameMain) {
+              bgClass = 'bg-gold/20';
+              borderClass = 'border-gold/60';
+              mainText = `b[${bIdx}]`;
+              mainColor = 'text-gold';
+            } else if (sameAnti) {
+              bgClass = 'bg-burgundy-crimson/25';
+              borderClass = 'border-burgundy-glow/60';
+              mainText = `c[${cIdx}]`;
+              mainColor = 'text-rose-400';
+            }
+          } else if (labViewMode === 'main') {
+            topEl.textContent = `7+${i}-${j}`;
+            mainText = `b[${bIdx}]`;
+            if (isSelected) {
+              bgClass = 'bg-gold/35';
+              borderClass = 'border-2 border-white';
+              mainColor = 'text-white';
+            } else if (sameMain) {
+              bgClass = 'bg-gold/20';
+              borderClass = 'border-gold';
+              mainColor = 'text-gold';
+            }
+          } else if (labViewMode === 'anti') {
+            topEl.textContent = `${i}+${j}`;
+            mainText = `c[${cIdx}]`;
+            if (isSelected) {
+              bgClass = 'bg-burgundy-crimson/40';
+              borderClass = 'border-2 border-white';
+              mainColor = 'text-white';
+            } else if (sameAnti) {
+              bgClass = 'bg-burgundy-crimson/25';
+              borderClass = 'border-burgundy-glow';
+              mainColor = 'text-rose-400';
+            }
+          } else if (labViewMode === 'raw') {
+            topEl.textContent = `${i}-${j}`;
+            mainText = rawDiff >= 0 ? `+${rawDiff}` : `${rawDiff}`;
+            if (sameMain) {
+              bgClass = rawDiff < 0 ? 'bg-burgundy-crimson/25' : 'bg-gold/20';
+              borderClass = rawDiff < 0 ? 'border-burgundy-glow' : 'border-gold';
+              mainColor = rawDiff < 0 ? 'text-rose-400' : 'text-gold';
+            }
+          }
+
+          cell.className = `aspect-square border ${borderClass} ${bgClass} flex flex-col items-center justify-center cursor-pointer transition-all p-0.5 select-none`;
+          mainEl.className = `font-mono text-[10px] sm:text-sm font-bold ${mainColor} mt-0.5`;
+          mainEl.textContent = mainText;
+        }
+      }
+
+      for (let k = 0; k < 8; k++) {
+        const el = document.getElementById(`labArr-a-${k}`);
+        el.className = k === selJ
+          ? 'py-1 rounded text-center font-mono text-[10px] bg-emerald-safe/25 border border-emerald-safe text-white font-bold'
+          : 'py-1 rounded text-center font-mono text-[10px] bg-surface-bg border border-white/10 text-brandText-secondary';
+      }
+      for (let k = 0; k < 15; k++) {
+        const elB = document.getElementById(`labArr-b-${k}`);
+        elB.className = k === selB
+          ? 'py-1 rounded text-center font-mono text-[9px] bg-gold/25 border border-gold text-gold font-bold'
+          : 'py-1 rounded text-center font-mono text-[9px] bg-surface-bg border border-white/10 text-brandText-secondary';
+
+        const elC = document.getElementById(`labArr-c-${k}`);
+        elC.className = k === selC
+          ? 'py-1 rounded text-center font-mono text-[9px] bg-burgundy-crimson/30 border border-burgundy-glow text-white font-bold'
+          : 'py-1 rounded text-center font-mono text-[9px] bg-surface-bg border border-white/10 text-brandText-secondary';
+      }
+    }
+
+    /* =====================================================================
+       11. TAB SWITCHING, COPY CODE & FOOTER INITIALIZATION
+    ====================================================================== */
+    function switchTab(tabKey) {
+      const tabs = ['sim', 'diag', 'comp'];
+      tabs.forEach(t => {
+        const panel = document.getElementById(`tabPanel-${t}`);
+        const btn = document.getElementById(`tabBtn-${t}`);
+        if (t === tabKey) {
+          panel.classList.remove('hidden');
+          btn.className = 'px-2 sm:px-4 py-1.5 rounded-lg text-[11px] sm:text-xs font-semibold transition-all bg-burgundy-royal text-white shadow-sm text-center';
+        } else {
+          panel.classList.add('hidden');
+          btn.className = 'px-2 sm:px-4 py-1.5 rounded-lg text-[11px] sm:text-xs font-medium transition-all text-brandText-secondary hover:text-white text-center';
+        }
+      });
+    }
+
+    function copyFullCSharpCode() {
+      const textarea = document.createElement('textarea');
+      textarea.value = FULL_CSHARP_PROGRAM;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        document.getElementById('copyBtnIcon').textContent = '✓';
+        document.getElementById('copyBtnText').textContent = 'تم نسخ الكود بنجاح!';
+        setTimeout(() => {
+          document.getElementById('copyBtnIcon').textContent = '📋';
+          document.getElementById('copyBtnText').textContent = 'نسخ كود C# الكامل';
+        }, 2400);
+      } catch (e) {
+        // Fallback silent handling
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function renderFooterSocials() {
+      const container = document.getElementById('footerSocialLinks');
+      container.innerHTML = Object.keys(SOCIAL_LINKS).map(key => {
+        const item = SOCIAL_LINKS[key];
+        return `
+          <a href="${item.url}" target="_blank" rel="noopener noreferrer"
+            class="social-geo-btn px-3 py-1.5 text-xs font-display font-medium text-[#F9F5F6] flex items-center gap-2">
+            <span class="text-gold">${item.icon}</span>
+            <span>${item.label}</span>
+          </a>
+        `;
+      }).join('');
+    }
+
+    /* =====================================================================
+       12. KEYBOARD SHORTCUTS & APPLICATION BOOTSTRAP
+    ====================================================================== */
+    window.addEventListener('keydown', (e) => {
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT')) return;
+      if (e.code === 'Space') {
+        e.preventDefault();
+        togglePlay();
+      } else if (e.code === 'ArrowLeft') {
+        e.preventDefault();
+        stepForward();
+      } else if (e.code === 'ArrowRight') {
+        e.preventDefault();
+        stepBackward();
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      precomputeAll92Solutions();
+      buildChessboardDOM();
+      buildMemoryArraysDOM();
+      buildCodeDebuggerDOM();
+      buildSolutionsGalleryDOM();
+      buildDiagonalLabDOM();
+      renderFooterSocials();
+
+      document.getElementById('fullCSharpCodeBlock').textContent = FULL_CSHARP_PROGRAM;
+
+      traceSteps = generateAlgorithmTrace(currentMode, detailedGranularity);
+      currentStepIndex = 0;
+      renderCurrentStep();
+    });

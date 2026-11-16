@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>محاكي خوارزمية الـ 8 وزراء بلغة C# | 8-Queens C# Backtracking Visualizer</title>
+
+  <!-- Google Fonts: IBM Plex Sans Arabic, Space Grotesk, Fira Code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind Configuration: Modern Clean SaaS Dark UI + Footer Obsidian & Burgundy Brand -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            surface: {
+              bg: '#09090B',
+              card: '#121216',
+              elevated: '#18181F',
+              hover: '#22222C',
+            },
+            obsidian: {
+              DEFAULT: '#0A0608',
+              velvet: '#130B0E',
+              card: '#1B0F14',
+              border: '#26161C',
+            },
+            burgundy: {
+              DEFAULT: '#800020',
+              royal: '#9F1239',
+              crimson: '#BE123C',
+              glow: '#E11D48',
+            },
+            gold: {
+              DEFAULT: '#D4AF37',
+              light: '#E5C158',
+              dim: 'rgba(212, 175, 55, 0.14)',
+            },
+            emerald: {
+              safe: '#10B981',
+              dim: 'rgba(16, 185, 129, 0.14)',
+            },
+            brandText: {
+              primary: '#F4F4F6',
+              secondary: '#A1A1AA',
+            }
+          },
+          fontFamily: {
+            arabic: ['"IBM Plex Sans Arabic"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+            mono: ['"Fira Code"', 'monospace'],
+          },
+          gridTemplateColumns: {
+            '15': 'repeat(15, minmax(0, 1fr))',
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen flex flex-col selection:bg-burgundy-royal selection:text-white">
+
+  <!-- =====================================================================
+       1. CLEAN MODERN HEADER (MOBILE-FRIENDLY & RESPONSIVE)
+  ====================================================================== -->
+  <header class="sticky top-0 z-50 bg-surface-bg/90 backdrop-blur-xl border-b border-white/[0.08]">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 flex flex-col gap-2.5 md:flex-row md:items-center md:justify-between">
+      
+      <!-- Top Row on Mobile: Title + Quick Action Buttons -->
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-burgundy-royal/40 to-surface-elevated border border-white/10 flex items-center justify-center shrink-0 shadow-inner">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gold" viewBox="0 0 32 32" fill="none">
+              <path d="M5 24L3 11L10 16L16 7L22 16L29 11L27 24H5Z" fill="#D4AF37" fill-opacity="0.25" stroke="#D4AF37" stroke-width="2" stroke-linejoin="round"/>
+              <rect x="5" y="25.5" width="22" height="2.5" rx="1" fill="#D4AF37"/>
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <h1 class="text-xs sm:text-base font-bold text-white tracking-tight">
+                محاكي الـ 8 وزراء بلغة C#
+              </h1>
+              <span dir="ltr" class="px-1.5 py-0.5 text-[10px] font-mono font-semibold rounded-full bg-gold/15 text-gold border border-gold/30">
+                O(1)
+              </span>
+            </div>
+            <p class="text-[10px] sm:text-[11px] text-brandText-secondary hidden sm:block">
+              شرح تفاعلي مبسط لخوارزمية التراجع <span dir="ltr" class="font-mono">Backtracking</span> ومصفوفات الفحص اللحظي
+            </p>
+          </div>
+        </div>
+
+        <!-- Quick Jump Buttons (Always accessible on Mobile & Desktop) -->
+        <div class="flex items-center gap-1.5 shrink-0">
+          <button type="button" onclick="jumpToBacktrackMoment()"
+            title="القفز المباشر إلى أول لحظة تراجع (Backtrack) مع الشرح"
+            class="px-2.5 py-1.5 rounded-xl text-[11px] sm:text-xs font-semibold bg-burgundy-crimson/20 hover:bg-burgundy-crimson/35 active:scale-95 text-rose-300 border border-burgundy-glow/40 transition-all flex items-center gap-1">
+            <span>⚡</span>
+            <span>لحظة التراجع</span>
+          </button>
+
+          <button type="button" onclick="jumpToNextSolution()"
+            title="القفز المباشر إلى اكتمال وضع 8 وزراء بأمان"
+            class="px-2.5 py-1.5 rounded-xl text-[11px] sm:text-xs font-semibold bg-gold/15 hover:bg-gold/25 active:scale-95 text-gold-light border border-gold/40 transition-all flex items-center gap-1">
+            <span>👑</span>
+            <span>اقفز للحل</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs (Full-width segmented control on mobile, centered pill on desktop) -->
+      <nav class="grid grid-cols-3 md:flex md:items-center bg-surface-card border border-white/[0.08] rounded-xl p-1 gap-1" role="tablist">
+        <button type="button" id="tabBtn-sim" onclick="switchTab('sim')"
+          class="px-2 sm:px-4 py-1.5 rounded-lg text-[11px] sm:text-xs font-semibold transition-all bg-burgundy-royal text-white shadow-sm text-center">
+          المحاكي التفاعلي
+        </button>
+        <button type="button" id="tabBtn-diag" onclick="switchTab('diag')"
+          class="px-2 sm:px-4 py-1.5 rounded-lg text-[11px] sm:text-xs font-medium transition-all text-brandText-secondary hover:text-white text-center">
+          مختبر الأقطار <span dir="ltr" class="font-mono text-[10px]">O(1)</span>
+        </button>
+        <button type="button" id="tabBtn-comp" onclick="switchTab('comp')"
+          class="px-2 sm:px-4 py-1.5 rounded-lg text-[11px] sm:text-xs font-medium transition-all text-brandText-secondary hover:text-white text-center">
+          المقارنة والكود
+        </button>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       MAIN WORKSPACE (MOBILE-FIRST & DESKTOP DUAL-COLUMN)
+  ====================================================================== -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6 space-y-5">
+
+    <!-- ===================================================================
+         TAB 1: المحاكي التفاعلي (INTERACTIVE SIMULATOR)
+    ==================================================================== -->
+    <section id="tabPanel-sim" class="space-y-5">
+
+      <!-- TOP LIVE STEP EXPLAINER CARD (Directly above the board on mobile for instant comprehension) -->
+      <div id="explainCard" class="modern-card p-3.5 sm:p-5 border-r-4 border-r-gold transition-all">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+          <div class="flex items-center gap-2">
+            <span id="stepTypeBadge" class="px-2.5 py-0.5 rounded-full text-[11px] sm:text-xs font-bold bg-gold/15 text-gold border border-gold/30">
+              جاهز للتشغيل
+            </span>
+            <h2 id="stepTitle" class="text-xs sm:text-base font-bold text-white leading-snug">
+              بداية الخوارزمية: وضع أول وزير في العمود <span dir="ltr" class="font-mono text-gold">i=0</span>
+            </h2>
+          </div>
+
+          <!-- Compact Live Variables Strip (Visible right inside the card on mobile!) -->
+          <div class="flex items-center gap-1.5 font-mono text-[11px]" dir="ltr">
+            <span id="stepSubCoords" class="px-2 py-0.5 rounded-md bg-surface-elevated text-gold font-semibold border border-white/10">
+              i=0, j=0
+            </span>
+            <span id="kpi-q" class="px-2 py-0.5 rounded-md bg-surface-elevated text-rose-400 font-bold border border-white/10">
+              q='n'
+            </span>
+          </div>
+        </div>
+
+        <p id="stepExplanationText" class="text-xs sm:text-sm text-brandText-primary/90 leading-relaxed mb-3">
+          اضغط على <strong>"تشغيل"</strong> أو <strong>"التالي ▶"</strong> لمشاهدة كيف تفحص الخوارزمية أمان كل مربع <code dir="ltr" class="font-mono text-gold">(i, j)</code> بخطوة واحدة <code dir="ltr" class="font-mono text-emerald-safe">O(1)</code>.
+        </p>
+
+        <!-- Compact O(1) Safety Formula Bar -->
+        <div class="modern-subcard p-2.5 flex flex-wrap items-center justify-between gap-2" dir="ltr">
+          <div class="flex flex-wrap items-center gap-1 sm:gap-1.5 font-mono text-[10px] sm:text-xs">
+            <span class="text-brandText-secondary hidden sm:inline">if (</span>
+            <span id="eq-a" class="px-2 py-0.5 rounded bg-surface-bg border border-white/10">a[0]=='y'</span>
+            <span class="text-gold font-bold">&amp;&amp;</span>
+            <span id="eq-b" class="px-2 py-0.5 rounded bg-surface-bg border border-white/10">b[7]=='y'</span>
+            <span class="text-gold font-bold">&amp;&amp;</span>
+            <span id="eq-c" class="px-2 py-0.5 rounded bg-surface-bg border border-white/10">c[0]=='y'</span>
+            <span class="text-brandText-secondary hidden sm:inline">)</span>
+          </div>
+          <span id="condResultBadge" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-white/10 text-brandText-secondary">
+            READY
+          </span>
+        </div>
+      </div>
+
+      <!-- MAIN 2-COLUMN WORKSPACE: Right (Chessboard + Ergonomic Controls) | Left (Arrays & Live Code) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+
+        <!-- RIGHT COLUMN (5 cols on LG): 8x8 Chessboard + Thumb-Friendly Controls -->
+        <div class="lg:col-span-5 modern-card p-3.5 sm:p-5 flex flex-col items-center space-y-3.5">
+          
+          <!-- Mode Switcher (Try1 vs Try2) & Overlay Selector -->
+          <div class="w-full flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center bg-surface-elevated p-1 rounded-xl border border-white/[0.06]">
+              <button type="button" id="modeBtn-try1" onclick="setAlgorithmMode('try1')"
+                class="px-2.5 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs font-semibold transition-all bg-burgundy-royal text-white shadow-sm">
+                <span dir="ltr" class="font-mono">Try1</span> (الحل الأول)
+              </button>
+              <button type="button" id="modeBtn-try2" onclick="setAlgorithmMode('try2')"
+                class="px-2.5 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs font-medium transition-all text-brandText-secondary hover:text-white">
+                <span dir="ltr" class="font-mono">Try2</span> (92 حلاً)
+              </button>
+            </div>
+
+            <!-- Board Overlay Toggle -->
+            <div class="flex items-center bg-surface-elevated p-1 rounded-xl border border-white/[0.06] text-[10px] sm:text-[11px] font-mono" dir="ltr">
+              <button type="button" id="ovBtn-none" onclick="setBoardOverlay('coords')"
+                class="px-2 py-1 rounded-lg bg-white/10 text-white transition-all">
+                (i,j)
+              </button>
+              <button type="button" id="ovBtn-mainDiag" onclick="setBoardOverlay('mainDiag')"
+                title="إظهار دليل القطر الرئيسي b[7 + i - j]"
+                class="px-2 py-1 rounded-lg text-brandText-secondary hover:text-white transition-all">
+                b[7+i-j]
+              </button>
+              <button type="button" id="ovBtn-antiDiag" onclick="setBoardOverlay('antiDiag')"
+                title="إظهار دليل القطر الثانوي c[i + j]"
+                class="px-2 py-1 rounded-lg text-brandText-secondary hover:text-white transition-all">
+                c[i+j]
+              </button>
+            </div>
+          </div>
+
+          <!-- Visual Legend for Mobile & Desktop Users -->
+          <div class="w-full flex flex-wrap items-center justify-between gap-2 px-2 py-1.5 rounded-lg bg-surface-elevated/60 text-[10px] sm:text-[11px] text-brandText-secondary">
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-emerald-safe/40 border border-emerald-safe"></span> تثبيت آمن</span>
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-burgundy-crimson/45 border border-burgundy-glow"></span> تعارض / وزير مهاجم</span>
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-burgundy-glow"></span> تراجع <span dir="ltr" class="font-mono">Backtrack</span></span>
+          </div>
+
+          <!-- 8x8 Chessboard Container -->
+          <div class="w-full max-w-[410px] select-none" dir="ltr">
+            <!-- Top Column Headers (i = 0..7) -->
+            <div class="grid grid-cols-9 mb-1 text-center">
+              <div class="text-[9px] sm:text-[10px] font-mono text-brandText-secondary flex items-center justify-center">j\i</div>
+              <div id="colHead-0" class="text-[10px] sm:text-xs font-mono font-medium text-brandText-secondary py-1 rounded-md">i=0</div>
+              <div id="colHead-1" class="text-[10px] sm:text-xs font-mono font-medium text-brandText-secondary py-1 rounded-md">i=1</div>
+              <div id="colHead-2" class="text-[10px] sm:text-xs font-mono font-medium text-brandText-secondary py-1 rounded-md">i=2</div>
+              <div id="colHead-3" class="text-[10px] sm:text-xs font-mono font-medium text-brandText-secondary py-1 rounded-md">i=3</div>
+              <div id="colHead-4" class="text-[10px] sm:text-xs font-mono font-medium text-brandText-secondary py-1 rounded-md">i=4</div>
+              <div id="colHead-5" class="text-[10px] sm:text-xs font-mono font-medium text-brandText-secondary py-1 rounded-md">i=5</div>
+              <div id="colHead-6" class="text-[10px] sm:text-xs font-mono font-medium text-brandText-secondary py-1 rounded-md">i=6</div>
+              <div id="colHead-7" class="text-[10px] sm:text-xs font-mono font-medium text-brandText-secondary py-1 rounded-md">i=7</div>
+            </div>
+
+            <!-- 8x8 Grid -->
+            <div id="chessboardGrid" class="rounded-xl overflow-hidden border border-white/15 bg-surface-bg shadow-2xl">
+              <!-- Populated dynamically by JS -->
+            </div>
+          </div>
+
+          <!-- Ergonomic Playback Control Bar (Thumb-friendly for Mobile) -->
+          <div class="w-full modern-subcard p-3 space-y-3">
+            <!-- Primary Transport Buttons -->
+            <div class="grid grid-cols-5 gap-1.5 sm:flex sm:items-center sm:justify-between">
+              <button type="button" onclick="resetSim()" title="إعادة للبداية"
+                class="col-span-1 py-2 px-2.5 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] active:scale-95 text-brandText-secondary hover:text-white text-xs font-medium transition-all flex items-center justify-center">
+                ⏮
+              </button>
+
+              <button type="button" onclick="stepBackward()" title="الخطوة السابقة"
+                class="col-span-1 sm:px-3 py-2 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] active:scale-95 text-xs font-semibold transition-all flex items-center justify-center gap-1">
+                <span>◀</span>
+                <span class="hidden sm:inline">السابق</span>
+              </button>
+
+              <button type="button" id="playPauseBtn" onclick="togglePlay()"
+                class="col-span-2 sm:px-5 py-2 rounded-xl bg-burgundy-royal hover:bg-burgundy-crimson active:scale-95 text-white font-bold text-xs transition-all flex items-center justify-center gap-1.5 shadow-lg shadow-burgundy/30">
+                <span id="playPauseIcon">▶</span>
+                <span id="playPauseText">تشغيل</span>
+              </button>
+
+              <button type="button" onclick="stepForward()" title="الخطوة التالية"
+                class="col-span-1 sm:px-3 py-2 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] active:scale-95 text-xs font-semibold transition-all flex items-center justify-center gap-1">
+                <span class="hidden sm:inline">التالي</span>
+                <span>▶</span>
+              </button>
+            </div>
+
+            <!-- Timeline Slider + Speed Control + Step Filter -->
+            <div class="space-y-2">
+              <div class="flex items-center gap-2.5">
+                <span id="kpi-step" dir="ltr" class="font-mono text-[11px] text-gold font-semibold min-w-[72px]">1 / 1</span>
+                <input id="timelineSlider" type="range" min="0" max="100" value="0"
+                  oninput="scrubToStep(this.value)"
+                  class="modern-slider flex-1" dir="ltr" />
+              </div>
+
+              <div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-white/[0.06]">
+                <!-- Speed Slider -->
+                <div class="flex items-center gap-2">
+                  <span class="text-[11px] text-brandText-secondary">السرعة:</span>
+                  <input id="speedSlider" type="range" min="1" max="100" value="55"
+                    oninput="updateSpeed(this.value)"
+                    class="modern-slider w-20 sm:w-24" dir="ltr" />
+                  <span id="speedValueLabel" dir="ltr" class="font-mono text-[11px] text-gold font-bold w-8">2x</span>
+                </div>
+
+                <!-- Step Granularity Toggle -->
+                <button type="button" id="granularityBtn" onclick="toggleTraceGranularity()"
+                  class="px-2.5 py-1 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.08] text-[11px] text-brandText-secondary transition-all">
+                  العرض: <span id="granularityLabel" class="text-gold font-semibold">شامل (كل فحص)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Compact Call Stack & Live Counters -->
+          <div class="w-full modern-subcard p-3 space-y-2">
+            <div class="flex flex-wrap items-center justify-between gap-2 text-[11px]">
+              <span class="text-brandText-secondary font-medium">مكدس الاستدعاءات <span dir="ltr" class="font-mono">(Call Stack)</span>:</span>
+              <div class="flex items-center gap-3 font-mono" dir="ltr">
+                <span id="kpi-coords" class="text-gold hidden sm:inline">i=0, j=0</span>
+                <span class="text-brandText-secondary">Backtracks: <strong id="kpi-backtracks" class="text-rose-400">0</strong></span>
+                <span class="text-brandText-secondary">Sol: <strong id="kpi-solutions" class="text-emerald-safe">0/1</strong></span>
+                <span id="kpi-depth" class="hidden">1</span>
+              </div>
+            </div>
+            <div id="callStackContainer" dir="ltr" class="flex flex-wrap items-center gap-1.5 pt-0.5">
+              <!-- Populated dynamically by JS -->
+            </div>
+          </div>
+
+          <!-- Tap/Hover Square Formula Preview -->
+          <div id="boardHoverHUD" class="w-full px-3 py-2 rounded-lg bg-surface-bg/80 border border-white/[0.05] text-[11px] flex flex-wrap items-center justify-between gap-1">
+            <span class="text-brandText-secondary">المربع المحدد:</span>
+            <span id="boardHoverFormulas" dir="ltr" class="font-mono text-brandText-primary">اضغط أو مرر على أي مربع لمعاينة معادلاته</span>
+          </div>
+
+        </div>
+
+        <!-- LEFT COLUMN (7 cols on LG): O(1) Memory Arrays + C# Live Code Debugger -->
+        <div class="lg:col-span-7 flex flex-col gap-4">
+
+          <!-- Mobile Sub-View Switcher (Allows phone users to switch between Arrays and Code without long scrolling) -->
+          <div class="flex lg:hidden items-center bg-surface-card p-1 rounded-xl border border-white/[0.08]">
+            <button type="button" id="mobPanelBtn-arrays" onclick="setMobileSimSubPanel('arrays')"
+              class="flex-1 py-1.5 rounded-lg text-xs font-semibold bg-white/10 text-white transition-all">
+              مصفوفات الذاكرة O(1)
+            </button>
+            <button type="button" id="mobPanelBtn-code" onclick="setMobileSimSubPanel('code')"
+              class="flex-1 py-1.5 rounded-lg text-xs font-medium text-brandText-secondary transition-all">
+              كود C# المتزامن
+            </button>
+            <button type="button" id="mobPanelBtn-both" onclick="setMobileSimSubPanel('both')"
+              class="flex-1 py-1.5 rounded-lg text-xs font-medium text-brandText-secondary transition-all">
+              عرض الاثنين
+            </button>
+          </div>
+
+          <!-- 1. Streamlined O(1) Memory Arrays Inspector -->
+          <div id="simSubPanel-arrays" class="modern-card p-4 sm:p-5 space-y-3.5">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <h3 class="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-gold"></span>
+                  <span>مراقب مصفوفات الفحص اللحظي <span dir="ltr" class="font-mono text-xs text-gold">O(1) Lookup Arrays</span></span>
+                </h3>
+                <p class="text-[11px] text-brandText-secondary mt-0.5">
+                  تُفحص المصفوفات الثلاث في آنٍ واحد لمعرفة هل الصف أو القطر آمن (<code dir="ltr" class="font-mono text-emerald-safe">'y'</code>) أم محجوز (<code dir="ltr" class="font-mono text-rose-400">'n'</code>).
+                </p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <!-- x[8] -->
+              <div class="modern-subcard p-3">
+                <div class="flex items-center justify-between mb-2 text-[11px]">
+                  <span class="font-bold text-gold">مواقع الوزراء <code dir="ltr" class="font-mono">x[8]</code></span>
+                  <span class="text-brandText-secondary text-[10px]">رقم الصف <code dir="ltr" class="font-mono">j</code> لكل عمود <code dir="ltr" class="font-mono">i</code></span>
+                </div>
+                <div id="arrayContainer-x" dir="ltr" class="grid grid-cols-8 gap-1"></div>
+              </div>
+
+              <!-- a[8] -->
+              <div class="modern-subcard p-3">
+                <div class="flex items-center justify-between mb-2 text-[11px]">
+                  <span class="font-bold text-emerald-safe">أمان الصفوف الأفقية <code dir="ltr" class="font-mono">a[8]</code></span>
+                  <span id="ptrLabel-a" dir="ltr" class="font-mono text-[10px] text-gold font-semibold">a[j]</span>
+                </div>
+                <div id="arrayContainer-a" dir="ltr" class="grid grid-cols-8 gap-1"></div>
+              </div>
+            </div>
+
+            <!-- b[15] & c[15] (Responsive 8 cols on mobile, 15 cols on tablet/desktop) -->
+            <div class="grid grid-cols-1 gap-3">
+              <!-- b[15] -->
+              <div class="modern-subcard p-3">
+                <div class="flex items-center justify-between mb-2 text-[11px]">
+                  <span class="font-bold text-gold-light">الأقطار الرئيسية (\) <code dir="ltr" class="font-mono">b[15]</code></span>
+                  <span id="ptrLabel-b" dir="ltr" class="font-mono text-[10px] text-gold font-semibold">b[7 + i - j]</span>
+                </div>
+                <div id="arrayContainer-b" dir="ltr" class="grid grid-cols-8 sm:grid-cols-15 gap-1"></div>
+              </div>
+
+              <!-- c[15] -->
+              <div class="modern-subcard p-3">
+                <div class="flex items-center justify-between mb-2 text-[11px]">
+                  <span class="font-bold text-rose-400">الأقطار الثانوية (/) <code dir="ltr" class="font-mono">c[15]</code></span>
+                  <span id="ptrLabel-c" dir="ltr" class="font-mono text-[10px] text-gold font-semibold">c[i + j]</span>
+                </div>
+                <div id="arrayContainer-c" dir="ltr" class="grid grid-cols-8 sm:grid-cols-15 gap-1"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Clean C# Code Debugger -->
+          <div id="simSubPanel-code" class="hidden lg:block modern-card overflow-hidden">
+            <div class="px-4 py-3 bg-surface-elevated border-b border-white/[0.06] flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-safe"></span>
+                <span class="text-xs font-bold text-white">متتبع كود C# المتزامن مع الرقعة</span>
+              </div>
+              <span id="codeHeaderSignature" dir="ltr" class="font-mono text-[11px] text-gold">
+                static void Try1(int i, ref char q)
+              </span>
+            </div>
+            <div id="codeDebuggerContainer" dir="ltr" class="py-2.5 px-1 overflow-x-auto bg-surface-bg/70">
+              <!-- Populated dynamically by JS -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- 92 Solutions Browser Bar -->
+      <div class="modern-card p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h3 class="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
+            <span>👑</span>
+            <span>مستكشف الحلول الـ 92 الكاملة</span>
+          </h3>
+          <p class="text-[11px] text-brandText-secondary mt-0.5">
+            اختر أي حل من القائمة لعرض توضع الوزراء الثمانية <code dir="ltr" class="font-mono text-gold">x[0..7]</code> وحالة المصفوفات فوراً على الرقعة.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <div id="solutionsQuickBar" dir="ltr" class="hidden md:flex items-center gap-1">
+            <!-- First 8 quick pills populated by JS -->
+          </div>
+          <select id="solutionSelectDropdown" onchange="inspectSolutionByNumber(this.value)"
+            dir="ltr" class="w-full sm:w-auto bg-surface-elevated border border-white/15 rounded-xl text-gold font-mono text-xs px-3 py-2 focus:outline-none focus:border-gold">
+          </select>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===================================================================
+         TAB 2: مختبر هندسة الأقطار O(1) (DIAGONAL GEOMETRY LAB)
+    ==================================================================== -->
+    <section id="tabPanel-diag" class="hidden space-y-5">
+
+      <div class="modern-card p-4 sm:p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-sm sm:text-lg font-bold text-white">
+            مختبر هندسة الأقطار: كيف تعمل المعادلتان <code dir="ltr" class="font-mono text-gold">b[7 + i - j]</code> و <code dir="ltr" class="font-mono text-rose-400">c[i + j]</code>؟
+          </h2>
+          <p class="text-xs sm:text-sm text-brandText-secondary mt-1 max-w-3xl leading-relaxed">
+            انقر أو مرّر على أي مربع <code dir="ltr" class="font-mono text-gold">(i, j)</code> في الرقعة أدناه لمشاهدة كيف تشترك جميع المربعات الواقعة على نفس القطر في رقم دليل ثابت، مما يلغي الحاجة لأي حلقة تكرار ويجعل الفحص لحظياً بتعقيد <code dir="ltr" class="font-mono text-emerald-safe">O(1)</code>.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 sm:flex gap-1.5 bg-surface-elevated p-1 rounded-xl border border-white/[0.06] shrink-0">
+          <button type="button" id="labMode-tri" onclick="setLabViewMode('tri')"
+            class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-burgundy-royal text-white transition-all">
+            التقاطع الثلاثي
+          </button>
+          <button type="button" id="labMode-main" onclick="setLabViewMode('main')"
+            class="px-3 py-1.5 rounded-lg text-xs font-medium text-brandText-secondary hover:text-white transition-all">
+            القطر الرئيسي <span dir="ltr" class="font-mono">b[7+i-j]</span>
+          </button>
+          <button type="button" id="labMode-anti" onclick="setLabViewMode('anti')"
+            class="px-3 py-1.5 rounded-lg text-xs font-medium text-brandText-secondary hover:text-white transition-all">
+            القطر الثانوي <span dir="ltr" class="font-mono">c[i+j]</span>
+          </button>
+          <button type="button" id="labMode-raw" onclick="setLabViewMode('raw')"
+            class="px-3 py-1.5 rounded-lg text-xs font-medium text-brandText-secondary hover:text-white transition-all">
+            الفرق الخام <span dir="ltr" class="font-mono">(i - j)</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+
+        <!-- Interactive 8x8 Diagonal Matrix -->
+        <div class="lg:col-span-6 modern-card p-4 sm:p-5 flex flex-col items-center">
+          <div class="w-full flex items-center justify-between mb-3">
+            <span class="text-xs text-brandText-secondary">المربع المحدد حالياً:</span>
+            <span id="labSelectedCoordBadge" dir="ltr" class="font-mono text-xs px-2.5 py-0.5 rounded-full bg-gold/15 text-gold border border-gold/30 font-semibold">
+              Selected: (i=3, j=4)
+            </span>
+          </div>
+
+          <div class="w-full max-w-[430px]" dir="ltr">
+            <div class="grid grid-cols-9 mb-1 text-center font-mono text-[10px] sm:text-xs text-brandText-secondary">
+              <div>j\i</div>
+              <div>i=0</div><div>i=1</div><div>i=2</div><div>i=3</div>
+              <div>i=4</div><div>i=5</div><div>i=6</div><div>i=7</div>
+            </div>
+            <div id="diagLabGrid" class="rounded-xl overflow-hidden border border-white/10 bg-surface-bg"></div>
+          </div>
+
+          <!-- Synchronized Index Strips -->
+          <div class="w-full mt-4 space-y-2.5" dir="ltr">
+            <div class="modern-subcard p-2.5">
+              <div class="text-[11px] font-mono text-emerald-safe mb-1 flex justify-between">
+                <span>Row Array a[8]</span>
+                <span id="labArrayLabel-a" class="font-bold">a[4]</span>
+              </div>
+              <div id="labArray-a" class="grid grid-cols-8 gap-1"></div>
+            </div>
+
+            <div class="modern-subcard p-2.5">
+              <div class="text-[11px] font-mono text-gold mb-1 flex justify-between">
+                <span>Main Diagonal b[15]</span>
+                <span id="labArrayLabel-b" class="font-bold">b[7 + 3 - 4] = b[6]</span>
+              </div>
+              <div id="labArray-b" class="grid grid-cols-8 sm:grid-cols-15 gap-1"></div>
+            </div>
+
+            <div class="modern-subcard p-2.5">
+              <div class="text-[11px] font-mono text-rose-400 mb-1 flex justify-between">
+                <span>Anti-Diagonal c[15]</span>
+                <span id="labArrayLabel-c" class="font-bold">c[3 + 4] = c[7]</span>
+              </div>
+              <div id="labArray-c" class="grid grid-cols-8 sm:grid-cols-15 gap-1"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mathematical Explanation Cards -->
+        <div class="lg:col-span-6 space-y-4">
+          <div class="modern-card p-4 sm:p-5">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-sm font-bold text-white">حساب الأدلة اللحظي للمربع المحدد</h3>
+              <span id="labLiveCellTitle" dir="ltr" class="font-mono text-gold text-sm font-bold">(i = 3, j = 4)</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div class="modern-subcard p-3 border-t-2 border-t-emerald-safe">
+                <div class="text-xs text-brandText-secondary">1. الصف الأفقي</div>
+                <div id="labCalc-row" dir="ltr" class="font-mono text-sm font-bold text-emerald-safe mt-1">a[j] = a[4]</div>
+                <p class="text-[11px] text-brandText-secondary mt-1.5">كل المربعات على نفس الصف تشترك في قيمة <code dir="ltr" class="font-mono">j</code>.</p>
+              </div>
+
+              <div class="modern-subcard p-3 border-t-2 border-t-gold">
+                <div class="text-xs text-brandText-secondary">2. القطر الرئيسي (\)</div>
+                <div id="labCalc-main" dir="ltr" class="font-mono text-sm font-bold text-gold mt-1">b[7+3-4] = b[6]</div>
+                <p class="text-[11px] text-brandText-secondary mt-1.5">عند التحرك قطرياً (\) يزداد <code dir="ltr" class="font-mono">i</code> و <code dir="ltr" class="font-mono">j</code> معاً فيبقى الفرق ثابتاً.</p>
+              </div>
+
+              <div class="modern-subcard p-3 border-t-2 border-t-burgundy-glow">
+                <div class="text-xs text-brandText-secondary">3. القطر الثانوي (/)</div>
+                <div id="labCalc-anti" dir="ltr" class="font-mono text-sm font-bold text-rose-400 mt-1">c[3+4] = c[7]</div>
+                <p class="text-[11px] text-brandText-secondary mt-1.5">عند التحرك قطرياً (/) ينقص أحدهما ويزداد الآخر فيبقى المجموع ثابتاً.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="modern-card p-4 sm:p-5 space-y-2.5">
+            <h4 class="text-sm font-bold text-white">
+              لماذا نجمع الرقم <code dir="ltr" class="font-mono text-gold">7</code> في معادلة القطر الرئيسي <code dir="ltr" class="font-mono text-gold">b[7 + i - j]</code>؟
+            </h4>
+            <p class="text-xs sm:text-sm text-brandText-secondary leading-relaxed">
+              لأن ناتج الطرح <code dir="ltr" class="font-mono">(i - j)</code> قد يكون سالباً! ففي الزاوية اليسرى السفلى <code dir="ltr" class="font-mono">(i=0, j=7)</code> يكون الناتج <code dir="ltr" class="font-mono text-rose-400">-7</code>، وفي الزاوية اليمنى العليا <code dir="ltr" class="font-mono">(i=7, j=0)</code> يكون <code dir="ltr" class="font-mono text-gold">+7</code>. وبما أن مصفوفات C# لا تقبل أدلة سالبة، نضيف الإزاحة <code dir="ltr" class="font-mono text-gold">+7</code> لتحويل المجال من <code dir="ltr" class="font-mono">[-7..+7]</code> إلى أدلة موجبة صحيحة <code dir="ltr" class="font-mono text-emerald-safe">[0..14]</code>.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===================================================================
+         TAB 3: المقارنة والكود الكامل (COMPARISON & FULL C# CODE)
+    ==================================================================== -->
+    <section id="tabPanel-comp" class="hidden space-y-5">
+
+      <!-- Comparison Table Card -->
+      <div class="modern-card p-4 sm:p-5">
+        <h2 class="text-sm sm:text-lg font-bold text-white mb-4">
+          المقارنة الأكاديمية بين الدالتين <code dir="ltr" class="font-mono text-gold">Try1(int i, ref char q)</code> و <code dir="ltr" class="font-mono text-emerald-safe">Try2(int i)</code>
+        </h2>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-right border-collapse text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-surface-elevated text-white border-b border-white/10">
+                <th class="p-3 font-semibold w-1/4">وجه المقارنة</th>
+                <th class="p-3 font-semibold w-3/8 text-gold"><code dir="ltr" class="font-mono">Try1(int i, ref char q)</code></th>
+                <th class="p-3 font-semibold w-3/8 text-emerald-safe"><code dir="ltr" class="font-mono">Try2(int i)</code></th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/[0.06] text-brandText-secondary">
+              <tr>
+                <td class="p-3 font-semibold text-white">الهدف من الدالة</td>
+                <td class="p-3">إيجاد <strong>الحل الأول فقط</strong> والتوقف فوراً عند تحقق <code dir="ltr" class="font-mono text-gold">q = 'y'</code>.</td>
+                <td class="p-3">إيجاد وطباعة <strong>جميع الحلول الـ 92</strong> الممكنة للمسألة.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-white">بنية الحلقة التكرارية</td>
+                <td class="p-3"><code dir="ltr" class="font-mono text-xs text-gold">do { j++; q = 'n'; ... } while ((q == 'n') && (j &lt; 7));</code></td>
+                <td class="p-3"><code dir="ltr" class="font-mono text-xs text-emerald-safe">for (int j = 0; j &lt; 8; j++) { ... }</code></td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-white">آلية التراجع (Backtrack)</td>
+                <td class="p-3">تراجع مشروط بـ <code dir="ltr" class="font-mono text-rose-400">if (q == 'n')</code> لكي لا يمسح الحل الأول بعد العثور عليه.</td>
+                <td class="p-3">تراجع غير مشروط في نهاية كل خطوة لإفراغ المسارات والبحث عن الحل التالي.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Full C# Code Viewer -->
+      <div class="modern-card overflow-hidden">
+        <div class="px-4 sm:px-5 py-3.5 bg-surface-elevated border-b border-white/[0.08] flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h3 class="text-xs sm:text-sm font-bold text-white">الكود المصدري الكامل بلغة C# <span dir="ltr" class="font-mono text-xs text-gold">(Program.cs)</span></h3>
+            <p class="text-[11px] text-brandText-secondary">كود كامل جاهز للنسخ والتشغيل المباشر في Visual Studio</p>
+          </div>
+          <button type="button" id="copyCodeBtn" onclick="copyFullCSharpCode()"
+            class="px-3.5 py-1.5 rounded-xl bg-burgundy-royal hover:bg-burgundy-crimson active:scale-95 text-white text-xs font-semibold transition-all flex items-center gap-2 shadow-md">
+            <span id="copyBtnIcon">📋</span>
+            <span id="copyBtnText">نسخ كود C# الكامل</span>
+          </button>
+        </div>
+        <pre id="fullCSharpCodeBlock" dir="ltr" class="p-4 sm:p-5 text-xs sm:text-[13px] font-mono leading-relaxed overflow-x-auto bg-surface-bg text-brandText-primary select-all"></pre>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- =====================================================================
+       2. EXCLUSIVE PERSONAL SIGNATURE FOOTER (ORIGINAL GEOMETRIC BRANDING)
+       Ahmad Altalla — Obsidian & Burgundy Geometric Identity
+  ====================================================================== -->
+  <footer class="mt-10 altalla-footer-shell">
+    <!-- Top decorative gradient hairline -->
+    <div class="h-[2px] w-full bg-gradient-to-l from-gold via-burgundy-glow to-burgundy"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+      <div class="altalla-geo-box p-5 sm:p-6 flex flex-col lg:flex-row items-center justify-between gap-6">
+        
+        <!-- RIGHT: Original Dual Geometric Wordmark (Kufic Monogram + Arabic + Divider + English) -->
+        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3.5">
+          <!-- Geometric Kufic / Monogram Square Emblem -->
+          <div class="w-11 h-11 bg-[#1B0F14] border border-gold/60 flex items-center justify-center relative group shadow-[0_0_15px_rgba(128,0,32,0.45)]">
+            <div class="absolute inset-[2px] border border-burgundy-royal/70 pointer-events-none"></div>
+            <svg class="w-6 h-6 text-gold transition-transform duration-300 group-hover:scale-110" viewBox="0 0 32 32" fill="none">
+              <path d="M5 26V10L12 5L19 10V26" stroke="#D4AF37" stroke-width="2.2" stroke-linecap="square"/>
+              <path d="M5 17H19" stroke="#E11D48" stroke-width="2.2"/>
+              <path d="M16 9H28M22 9V26" stroke="#F9F5F6" stroke-width="2.2" stroke-linecap="square"/>
+              <rect x="20" y="24" width="4" height="3" fill="#D4AF37"/>
+            </svg>
+          </div>
+
+          <!-- Arabic Name -->
+          <div class="flex flex-col text-right">
+            <span class="text-base sm:text-lg font-bold tracking-tight text-[#F9F5F6] leading-tight">أحمد التلا</span>
+            <span class="text-[10px] text-gold font-mono tracking-widest">هندسة البرمجيات</span>
+          </div>
+
+          <!-- Vertical Gradient Divider (Burgundy to Gold) -->
+          <div class="h-9 w-[1.5px] bg-gradient-to-b from-gold via-burgundy-glow to-burgundy mx-1"></div>
+
+          <!-- English Tracked Identity -->
+          <div class="flex flex-col text-left" dir="ltr">
+            <span class="font-display font-bold text-xs sm:text-sm tracking-[0.16em] text-[#F9F5F6] leading-tight">AHMAD ALTALLA</span>
+            <span class="font-display text-[9px] tracking-[0.24em] text-[#A38F96] uppercase">SOFTWARE ENGINEER</span>
+          </div>
+        </div>
+
+        <!-- CENTER: Code Signature Badge <ALTALLA SE/> & Credit Line -->
+        <div class="flex flex-col items-center text-center gap-2">
+          <div dir="ltr" class="px-3.5 py-1.5 bg-[#0A0608] border border-[#26161C] shadow-[0_0_18px_rgba(128,0,32,0.35)] font-mono text-sm font-bold tracking-wider flex items-center gap-1.5">
+            <span class="text-burgundy-glow">&lt;</span>
+            <span class="text-[#F9F5F6] font-display tracking-[0.14em]">ALTALLA</span>
+            <span class="px-1.5 py-0.5 text-[10px] bg-gold/20 text-gold border border-gold/60 font-mono">SE</span>
+            <span class="text-burgundy-glow">/&gt;</span>
+          </div>
+          <p class="text-xs text-[#A38F96]">
+            تم التصميم والتطوير بواسطة المهندس <strong class="text-[#F9F5F6]">أحمد التلا</strong> | <span dir="ltr" class="font-display text-gold">Ahmad Altalla — Software Engineer</span>
+          </p>
+        </div>
+
+        <!-- LEFT: Interactive Geometric Social Buttons -->
+        <div id="footerSocialLinks" class="flex flex-wrap items-center justify-center gap-2" dir="ltr">
+          <!-- Populated dynamically from SOCIAL_LINKS config -->
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       COMPLETE SELF-CONTAINED JAVASCRIPT ENGINE (ZERO BUGS, INSTANT 60FPS)
+  ====================================================================== -->
+<script src="script.js"></script>
+</body>
+</html>
